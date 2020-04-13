@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 public class AddContactActivity extends AppCompatActivity {
     private EditText etName;
@@ -36,7 +37,7 @@ public class AddContactActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Contact contact = createContact(etName.getText().toString(), etNumber.getText().toString());
+                Contact contact = createContact(etName.getText().toString());
                 if (contact != null) {
                     Intent intent = new Intent();
                     intent.putExtra("contact", contact);
@@ -47,17 +48,17 @@ public class AddContactActivity extends AppCompatActivity {
         });
     }
 
-    private Contact createContact(String name, String number) {
+    private Contact createContact(String name) {
         boolean invalid = false;
         if (name == null || name.isEmpty()) {
             invalid = true;
             etName.setError("لا يمكن إضافة مستحدم بدون اسم");
         }
-        if (number == null || number.isEmpty()) {
-            invalid = true;
-            etNumber.setError("لا يمكن إضافة مستخدم بدون رقم ");
-        }
+       // if (number == null || number.isEmpty()) {
+         //   invalid = true;
+           // etNumber.setError("لا يمكن إضافة مستخدم بدون رقم ");
+
         if (invalid) return null;
-        else return new Contact(name, number);
+        else return new Contact(name);
     }
 }
