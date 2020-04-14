@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddContactActivity extends AppCompatActivity {
     private EditText etName;
+    FloatingActionButton floatingActionButton;
 
 
     @Override
@@ -31,16 +32,15 @@ public class AddContactActivity extends AppCompatActivity {
 
     void initView() {
         etName = findViewById(R.id.et_name);
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Contact contact = createContact(etName.getText().toString());
                 if (contact != null) {
                     Intent intent = new Intent();
                     intent.putExtra("contact", contact);
+                    intent.putExtra("position", getIntent().getIntExtra("position", 0));
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
@@ -54,7 +54,7 @@ public class AddContactActivity extends AppCompatActivity {
             invalid = true;
             etName.setError("لا يمكن إضافة مستحدم بدون اسم");
         }
-       // if (number == null || number.isEmpty()) {
+       //if (number == null || number.isEmpty()) {
          //   invalid = true;
            // etNumber.setError("لا يمكن إضافة مستخدم بدون رقم ");
 

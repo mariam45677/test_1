@@ -19,11 +19,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView rv;
-    FloatingActionButton btnFloatingAction;
+    FloatingActionButton fab ;
+    Intent intent;
 
     final int ADD_REQUEST_CODE = 1;
     final int  Edit_REQUEST_CODE = 2;
-    ArrayList<Contact> contactList = new ArrayList<>();
     AdapterView.OnItem o = new AdapterView.OnItem() {
 
         @Override
@@ -46,6 +46,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     AdapterView adapter = new AdapterView(o);
+    ArrayList<Contact> contactList = new ArrayList<>();
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            intent = new Intent(MainActivity.this, AddContactActivity.class);
+            startActivityForResult(intent, ADD_REQUEST_CODE);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         adapter.submitList(contactList);
+
+        rv.setAdapter(adapter);
+        fab.setOnClickListener(onClickListener);
     }
 
         void initViews () {
+            fab = findViewById(R.id.fab);
             rv = findViewById(R.id.rv);
-            rv.setAdapter(adapter);
-            FloatingActionButton fab = findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, AddContactActivity.class);
-                    startActivityForResult(intent, ADD_REQUEST_CODE);
-                }
-            });
         }
         @Override
         protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
