@@ -35,7 +35,7 @@ public class AdapterView extends ListAdapter <Contact, AdapterView.AndHolder> {
     }
 
     interface OnItem {
-        void Onclick(Contact contact,int postion);
+        void Onclick(Contact contact,int position);
         //عاوزة اعمل امبلمنتيشن هروح الاكتفيتي اللي عاوزة اعمل فيها
         void delete(Contact contact);
 

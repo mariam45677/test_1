@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddContactActivity extends AppCompatActivity {
     private EditText etName;
-    private EditText etNumber;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class AddContactActivity extends AppCompatActivity {
         if (getIntent().hasExtra("contact")){
             Contact contact = (Contact) getIntent().getSerializableExtra("contact");
             etName.setText(contact.getName());
-            etNumber.setText(contact.getNumber());
+
 
         }
     }

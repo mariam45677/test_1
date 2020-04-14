@@ -19,18 +19,19 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView rv;
+    FloatingActionButton btnFloatingAction;
 
     final int ADD_REQUEST_CODE = 1;
-    final int  Edit_REQUEST_CODE = 0;
+    final int  Edit_REQUEST_CODE = 2;
     ArrayList<Contact> contactList = new ArrayList<>();
     AdapterView.OnItem o = new AdapterView.OnItem() {
 
         @Override
-        public void Onclick (Contact contact , int postion ) {
+        public void Onclick (Contact contact , int position) {
 
             Intent intent = new Intent(MainActivity.this,AddContactActivity.class);
             intent.putExtra("contact",contact);
-            intent.putExtra("o",contact);
+            intent.putExtra("postion", position);
             startActivityForResult(intent,Edit_REQUEST_CODE);
 
 
