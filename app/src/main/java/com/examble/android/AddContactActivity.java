@@ -12,53 +12,55 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class AddContactActivity extends AppCompatActivity {
-    private EditText etName;
+    EditText edName, edNumber;
     FloatingActionButton floatingActionButton;
-
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Contact contact = checkForError(edName.getText().toString());
+            if (contact != null) {
+                Intent resault_Intent = new Intent();
+                resault_Intent.putExtra("contact", contact);
+                resault_Intent.putExtra("position", getIntent().getIntExtra("position", 0));
+                setResult(Activity.RESULT_OK, resault_Intent);
+                finish();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
-        initView();
-//بتجبلي ال انتنت اللي ف المين بتندهالي لوجاي اكستر كونتنت هينفذ ده
-        if (getIntent().hasExtra("contact")){
+        myFindById();
+        if (getIntent().hasExtra("contact")) {
             Contact contact = (Contact) getIntent().getSerializableExtra("contact");
-            etName.setText(contact.getName());
-
-
+            edName.setText(contact.getName());
+            edNumber.setText(contact.getNumber());
         }
+        //onclick
+        floatingActionButton.setOnClickListener(onClickListener);
+
     }
 
-    void initView() {
-        etName = findViewById(R.id.et_name);
-floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Contact contact = createContact(etName.getText().toString());
-                if (contact != null) {
-                    Intent intent = new Intent();
-                    intent.putExtra("contact", contact);
-                    intent.putExtra("position", getIntent().getIntExtra("position", 0));
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                }
-            }
-        });
+    private void myFindById() {
+        edName = findViewById(R.id.et_name);
+        floatingActionButton = findViewById(R.id.fab);
     }
 
-    private Contact createContact(String name) {
-        boolean invalid = false;
+    private Contact checkForError(String name) { //if you add img add error detect for it
+        boolean allIsFine = true;
         if (name == null || name.isEmpty()) {
-            invalid = true;
-            etName.setError("لا يمكن إضافة مستحدم بدون اسم");
+            edName.setError("Enter A Name!");
+            allIsFine = false;
         }
-       //if (number == null || number.isEmpty()) {
-         //   invalid = true;
-           // etNumber.setError("لا يمكن إضافة مستخدم بدون رقم ");
-
-        if (invalid) return null;
-        else return new Contact(name);
+       // if (number == null || number.isEmpty()) {
+         //   edNumber.setError("Enter A Number!");
+           // allIsFine = false;
+        //}
+        if (allIsFine) {
+            return new Contact(name);
+        } else {
+            return null;
     }
-}
+}}
