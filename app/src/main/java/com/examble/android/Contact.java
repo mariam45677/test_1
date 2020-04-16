@@ -1,23 +1,35 @@
 package com.examble.android;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
+@Entity
 
 public class Contact implements Serializable {
-    private String name;
-    private String number;
-    private int img;
 
-    public int getImg() {
-        return img;
-    }
+        @NonNull
+        @PrimaryKey
+        @ColumnInfo(name = "Contact_Name")
+        private String name;
+        @ColumnInfo(name = "Contact_Number")
+        private String number;
+        @ColumnInfo(name = "Contact_Image")
+        private int imgResource;
 
-    public void setImg(int img) {
-        this.img = img;
-    }
+      //  public int getImg() {
+       // return img;
+    //}
 
-    public Contact(int img) {
-        this.img = img;
-    }
+    //public void setImg(int img) {
+      //  this.img = img;
+    //}
+
+    //public Contact(int img) {
+      //  this.img = img;
+    //}
 
     public Contact(String name) {
     }
@@ -38,9 +50,18 @@ public class Contact implements Serializable {
         this.number = number;
     }
 
-    public Contact(String name, String number) {
+    public int getImgResource() {
+        return imgResource;
+    }
+
+    public void setImgResource(int imgResource) {
+        this.imgResource = imgResource;
+    }
+
+    public Contact(String name, String number, int imgResource) {
         this.name = name;
         this.number = number;
+        this.imgResource=imgResource;
     }
 
 }

@@ -17,7 +17,7 @@ public class AdapterView extends ListAdapter <Contact, AdapterView.AndHolder> {
 
     private OnItem onItem;
 
-    static DiffUtil.ItemCallback<Contact> diffCallback=new DiffUtil.ItemCallback<Contact>() {
+     private static DiffUtil.ItemCallback<Contact> diffCallback=new DiffUtil.ItemCallback<Contact>() {
         @Override
         public boolean areItemsTheSame(@NonNull Contact oldItem, @NonNull Contact newItem) {
             return oldItem.getNumber().equals(newItem.getNumber());
@@ -74,6 +74,7 @@ public class AdapterView extends ListAdapter <Contact, AdapterView.AndHolder> {
 
     public class AndHolder extends RecyclerView.ViewHolder {
         TextView tvName;
+        TextView tvnumber;
         ImageView img,delete;
 
 
@@ -82,14 +83,16 @@ public class AdapterView extends ListAdapter <Contact, AdapterView.AndHolder> {
 
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
+            tvnumber = itemView.findViewById(R.id.nn);
             img = itemView.findViewById(R.id.img);
             delete = itemView.findViewById(R.id.img_delete);
 
         }
 
         void onBind(Contact contact) {
+            tvnumber.setText(contact.getNumber());
             tvName.setText(contact.getName());
-            img.setImageResource(contact.getImg());
+            img.setImageResource(contact.getImgResource());
 
         }
 

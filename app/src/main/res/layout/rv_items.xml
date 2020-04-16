@@ -29,6 +29,15 @@
         app:layout_constraintStart_toEndOf="@id/img"
         app:layout_constraintTop_toTopOf="@id/img"
         tools:text="Mohamed Hamdy"/>
+        <TextView
+            android:id="@+id/nn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="4545655"
+            app:layout_constraintStart_toEndOf="@id/tv_name"
+            app:layout_constraintTop_toTopOf="@id/tv_name"
+            app:layout_constraintBottom_toBottomOf="@id/tv_name"
+            android:layout_margin="23dp"/>
     <ImageView
         android:id="@+id/img_delete"
         android:layout_width="wrap_content"

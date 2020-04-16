@@ -17,7 +17,7 @@ public class AddContactActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Contact contact = checkForError(edName.getText().toString());
+            Contact contact = checkForError(edName.getText().toString(),edNumber.getText().toString());
             if (contact != null) {
                 Intent resault_Intent = new Intent();
                 resault_Intent.putExtra("contact", contact);
@@ -45,19 +45,20 @@ public class AddContactActivity extends AppCompatActivity {
 
     private void myFindById() {
         edName = findViewById(R.id.et_name);
+        edNumber = findViewById(R.id.edNumber);
         floatingActionButton = findViewById(R.id.fab);
     }
 
-    private Contact checkForError(String name) { //if you add img add error detect for it
+    private Contact checkForError(String name,String number) { //if you add img add error detect for it
         boolean allIsFine = true;
         if (name == null || name.isEmpty()) {
             edName.setError("Enter A Name!");
             allIsFine = false;
         }
-       // if (number == null || number.isEmpty()) {
-         //   edNumber.setError("Enter A Number!");
-           // allIsFine = false;
-        //}
+        if (number == null || number.isEmpty()) {
+            edNumber.setError("Enter A Number!");
+            allIsFine = false;
+        }
         if (allIsFine) {
             return new Contact(name);
         } else {
