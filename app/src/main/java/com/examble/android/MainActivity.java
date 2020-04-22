@@ -117,7 +117,7 @@ ContactRepo.repo callback = new ContactRepo.repo() {
                 //list = db.contactDao().getContactsList();
                 //adapter.submitList(list);
                 AddContactRepo addcontact =new AddContactRepo(db,callback);
-                    addcontact.execute(new Contact("mmmmm",new Random().nextInt()+""));
+                    addcontact.execute((Contact) data.getSerializableExtra("contact"));
 
 
 

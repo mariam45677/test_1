@@ -34,6 +34,9 @@ public class Contact implements Serializable {
     public Contact(String mmmmm, String name) {
     }
 
+    public Contact(String name) {
+    }
+
     public String getName() {
         return name;
     }
