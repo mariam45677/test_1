@@ -31,7 +31,7 @@ public class Contact implements Serializable {
       //  this.img = img;
     //}
 
-    public Contact(String name) {
+    public Contact(String mmmmm, String name) {
     }
 
     public String getName() {

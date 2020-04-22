@@ -14,10 +14,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.examble.android.db.AppDatabase;
+import com.examble.android.reoo.AddContactRepo;
+import com.examble.android.reoo.ContactRepo;
+import com.examble.android.reoo.DeleteContactRepo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView rv;
@@ -47,9 +51,14 @@ public class MainActivity extends AppCompatActivity {
             //contactList.remove(contact);
             //ArrayList<Contact> List = new ArrayList<>(contactList);
            // adapter.submitList(List);
-            db.contactDao().deleteContact(contact);
-            list = db.contactDao().getContactsList();
-            adapter.submitList(list);
+       //     db.contactDao().deleteContact(contact);
+         //   list = db.contactDao().getContactsList();
+           // adapter.submitList(list);
+            DeleteContactRepo delet = new DeleteContactRepo(db,callback);
+            delet.execute(contact);
+
+
+
         }
     };
     AdapterView adapter = new AdapterView(o);
@@ -61,9 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
             startActivityForResult(intent, ADD_REQUEST_CODE);
 
+
         }
     };
+ContactRepo.repo callback = new ContactRepo.repo() {
+    @Override
+    public void getContactList(List<Contact> contacts) {
+        adapter.submitList(contacts);
 
+    }
+};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +88,12 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         db = AppDatabase.getInstance(this);
+       ContactRepo repo =  new ContactRepo(db, callback);
+       AddContactRepo addcontact =new AddContactRepo(db,callback);
+        DeleteContactRepo delet = new DeleteContactRepo(db,callback);
 
+       repo.execute();
+       //rr.execute();
         list = db.contactDao().getContactsList();
         adapter.submitList(list);
       //  adapter.submitList(contactList);
@@ -92,9 +113,15 @@ public class MainActivity extends AppCompatActivity {
             if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
               //  contactList.add((Contact) data.getSerializableExtra("contact"));
               //  ArrayList<Contact> List = new ArrayList<>(contactList);
-                db.contactDao().InsertContact((Contact) data.getSerializableExtra("contact"));
-                list = db.contactDao().getContactsList();
-                adapter.submitList(list);
+               // db.contactDao().InsertContact((Contact) data.getSerializableExtra("contact"));
+                //list = db.contactDao().getContactsList();
+                //adapter.submitList(list);
+                AddContactRepo addcontact =new AddContactRepo(db,callback);
+                    addcontact.execute(new Contact("mmmmm",new Random().nextInt()+""));
+
+
+
+
             } else if (requestCode == Edit_REQUEST_CODE && requestCode == Activity.RESULT_OK) {
 
              //   contactList.set(data.getIntExtra("position", 0), (Contact) data.getSerializableExtra("contact"));
