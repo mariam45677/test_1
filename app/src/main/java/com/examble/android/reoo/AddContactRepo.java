@@ -23,7 +23,6 @@ public class AddContactRepo extends AsyncTask <Contact,Void, List<Contact> >{
 
         return db.contactDao().getContactsList();
     }
-    https://github.com/mariam45677/test_1
 
     @Override
     protected void onPostExecute(List<Contact> contacts) {
